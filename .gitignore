@@ -1,0 +1,14 @@
+.idea/
+__pycache__/
+venv
+.env
+*~
+*.pyc
+*.log
+*.pot
+*.sqlite
+*.sqlite3
+local_settings.py
+*egg-info
+*.egg
+.eggs

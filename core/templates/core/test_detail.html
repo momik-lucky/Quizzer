@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Test detail page
+{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4 mb-4">
+        <h1 class="text-center m-4">{{ test.title }}</h1>
+        <h4>Description:</h4>
+        <p>{{ test.description }}</p>
+        <div class="row">
+            <div class="col">Created: {{ test.created }}</div>
+            <div class="col text-right">Total number of attempts: <b>{{ test.attempts_counter }}</b></div>
+        </div>
+    {% if exam.result == -1 and exam.correct_answer_counter == 0 %}
+        <a href="{{ test.get_absolute_url }}questions" class="btn-lg btn-success btn-block mt-4 text-center">Let's start test</a>
+    {% else %}
+        <div class="alert alert-danger mt-5 mb-5" role="alert">
+          <h3 class="text-center">You have already passed the test. Your result: <b>{{ exam.result }}%</b></h3>
+          <h4>Total number of questions: {{ test.question_quantity }}</h4>
+          <h4>Number of correct answers: {{ exam.correct_answer_counter }}</h4>
+        </div>
+    {% endif %}
+    </div>
+  <div class="container mt-4 mb-4">
+    <h3 class="col-sm-10 offset-sm-1">Comments:</h3>
+    {# It is needed for showing new comment #}
+    <div class="col-sm-10 offset-sm-1 new_comment">
+    </div>
+
+    {% for comment in comments %}
+        <div class="col-sm-10 offset-sm-1">
+            <hr>
+            <small><b>{{ comment.author.username }}</b></small>
+            <p>{{ comment.text }} <br>
+            <small>{{ comment.created }}</small></p>
+        </div>
+    {% endfor %}
+
+    <div class="col-sm-10 offset-sm-1">
+      <form action="" method="post">
+        <input type="hidden" data-id="{{ test.id }}" id="test_comment">
+        {% csrf_token %}
+        {{ form.comment }}
+        <input type="submit" value="Add new comment" class="btn btn-outline-success float-right mt-2 mb-2" id="add_comment" data-toggle="modal" data-target="#exampleModalCenter">
+      </form>
+    </div>
+    {# Modal window #}
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">New comment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Your comment has been successfully added.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block jquery %}
+    <script>
+        $(document).ready(function(){
+            $('#add_comment').on('click', function (e) {
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = cookies[i].trim();
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+                var csrftoken = getCookie('csrftoken');
+                e.preventDefault();
+                var test_id = $('#test_comment').attr('data-id');
+                var comment = $('#id_comment').val();
+
+                data = {
+                    test_id: test_id,
+                    comment: comment,
+                    csrfmiddlewaretoken: csrftoken
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'add_comment' %}",
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        $.each(data, function(field){
+                            $('.new_comment').prepend(
+                                '<hr><small><b>'+data[field]['author']+'</b></small><p>'+data[field]['text']+'<br><small>'+data[field]['created']+'</small></p>'
+                            );
+                            $('#id_comment').val('')
+                        })
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock jquery %}
+

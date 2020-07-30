@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Questions page
+{% endblock title %}
+
+{% block content %}
+    <h1 class="text-center m-5">"{{ test.title }}"</h1>
+
+      {% for question in questions %}
+      <form method="post" action="" id="add_answer_{{ question.id }}">
+      {% csrf_token %}
+        <div class="card">
+          <div class="card-header col-md-12">
+            <div class="col-md-9">
+              <h5>{{ question.question }}</h5>
+            </div>
+            <div class="col-md-2">
+              <input type="submit" value="Accept answer" class="btn btn-success text-right mt-2 mb-2" id="question_answer_{{ question.id }}">
+            </div>
+          </div>
+          <div class="card-body form-group">
+            <div class="row">
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input radio{{ question.id }}" type="radio" name="radio_choices{{ question.id }}" id="gridRadios{{ question.id }}_1" value="{{ question.choise_1 }}" required>
+                  <label class="form-check-label" for="gridRadios{{ question.id }}_1">
+                    {{ question.choise_1 }}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input radio{{ question.id }}" type="radio" name="radio_choices{{ question.id }}" id="gridRadios{{ question.id }}_2" value="{{ question.choise_2 }}" required>
+                  <label class="form-check-label" for="gridRadios{{ question.id }}_2">
+                    {{ question.choise_2 }}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input radio{{ question.id }}" type="radio" name="radio_choices{{ question.id }}" id="gridRadios{{ question.id }}_3" value="{{ question.choise_3 }}" required>
+                  <label class="form-check-label" for="gridRadios{{ question.id }}_3">
+                    {{ question.choise_3 }}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input radio{{ question.id }}" type="radio" name="radio_choices{{ question.id }}" id="gridRadios{{ question.id }}_4" value="{{ question.choise_4 }}" required>
+                  <label class="form-check-label" for="gridRadios{{ question.id }}_4">
+                    {{ question.choise_4 }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      {% endfor %}
+      <div class="form-actions mt-2 mb-3 text-center">
+        <a href="{{ test.get_absolute_url }}results" class="btn-lg btn-success col-sm-3 text-center btn-submit ml-auto mr-auto" id="submit_btn" type="submit">Finish the test</a>
+      </div>
+{% endblock %}
+
+{% block jquery %}
+    <script type="text/javascript">
+        {% for question in questions %}
+        var question_form = $('#add_answer_{{ question.id }}');
+            question_form.one('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: {
+                        test_id: $('#test_id').attr('data-id'),
+                        question_id: {{ question.id }},
+                        radio_choices: $(".radio{{ question.id }}:checked").val(),
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                        action: 'post'
+                    },
+                    success: function() {
+                        console.log('Answer accepted');
+                    },
+                    error: function() {
+                        console.log('Error');
+                    }
+                });
+                $(this).find('input[type="submit"]').attr('disabled','disabled');
+                return false;
+            });
+        {% endfor %}
+    </script>
+{% endblock jquery %}

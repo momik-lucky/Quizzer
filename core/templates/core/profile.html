@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-uppercase m-4">User profile</h2>
+    <div class="card">
+      <div class="card-header">
+        <h4>{{ current_user.username|title }}</h4>
+      </div>
+      <div class="card-body row">
+        <div class="col-md-8">
+            <p class="card-text"><b>First name: </b>{{ user_profile.first_name }}</p>
+            <p class="card-text"><b>Last name: </b>{{ user_profile.last_name }}</p>
+            <p class="card-text"><b>Birthday: </b>{{ user_profile.birthday }}</p>
+            <p class="card-text"><b>Info: </b>{{ user_profile.info }}</p>
+        </div>
+        <div class="col-md-4">
+            <img src="/media/{{ user_profile.avatar }}" class="rounded img-thumbnail">
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

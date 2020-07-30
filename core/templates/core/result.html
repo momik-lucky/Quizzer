@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Results page
+{% endblock title %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="m-5">Test title: "{{ test.title }}"</h1>
+    <h4>Total number of questions: {{ test.question_quantity }}</h4>
+    <h4>Number of correct answers: {{ exam.correct_answer_counter }}</h4>
+    <h3>{% if current_user.first_name or current_user.last_name %}
+            {{ current_user.first_name }} {{ current_user.last_name }},
+        {% else %}
+            {{ current_user.username|title }},
+        {% endif %}
+        your result: <b>{{ exam.result }}%</b></h3>
+    {% if exam.result < 50 %}
+        <h3 class="text-danger m-5">Sorry, you lost</h3>
+    {% elif exam.result >= 80 %}
+        <h3 class="text-success m-5">Congratulations, great result!</h3>
+    {% else %}
+        <h3 class="text-warning m-5">Not bad</h3>
+    {% endif %}
+    <h3 class="text-success m-5">Thank you!</h3>
+    <a class="btn btn-lg btn-success col-4" href="{% url 'tests_list' %}" role="button">View a list of tests</a>
+  </div>
+{% endblock %}
+
+

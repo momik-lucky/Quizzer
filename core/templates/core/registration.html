@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Registration page
+{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="media-container-column col-lg-6" data-form-type="formoid">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="card">
+          <h5 class="card-header text-center">New User Registration</h5>
+          <div class="card-body">
+            {% for field in form %}
+            <h6 class="card-title">{{ field.label_tag }}</h6>
+            <p class="card-text col-4">{{ field }}
+              {% for error in field.errors %}
+                <small class="text-danger card-text">{{ error }}</small>
+              {% endfor %}</p>
+            {% endfor %}
+            <div class="form-actions text-right">
+              <button type="submit" class="btn btn-lg btn-success col-4">Create user</button>
+            </div>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}

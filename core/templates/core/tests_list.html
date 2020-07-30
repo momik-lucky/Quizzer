@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Tests list page
+{% endblock title %}
+
+{% block content %}
+    {% if tests %}
+        <div class="row mt-4 mb-2">
+            <div class="col-7">
+                <h1>Available tests:</h1>
+            </div>
+            <div class="col-2">
+                <form method="get">
+                    <input type="submit" class="btn btn-outline-success" value="Show non passed tests" name="no_passed_exam">
+                </form>
+            </div>
+            <div class="col-3 text-right">
+                <form action="" method="get">
+                    {% csrf_token %}
+                    <input class="btn btn-outline-success" type="submit" value="Sort by: "/>
+                    {{ form }}
+                </form>
+            </div>
+        </div>
+        {% for test in tests %}
+            <div class="card">
+              <div class="card-header">
+                {{ test.created }}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ test.title }}</h5>
+                <p class="card-text">{{ test.description }}</p>
+                <a href="{{ test.get_absolute_url }}" class="btn btn-success">Let's start</a>
+              </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="h-100 justify-content-center align-items-center">
+          <div class="col-10 offset-1 mt-5">
+              <h1 class="text-center">There is no any available test!</h1>
+          </div>
+          <div class="col-md-5 offset-md-8 mt-4">
+              <a class="btn btn-success btn-lg" role="button" href="{% url 'test_create' %}">Create new test</a>
+          </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,223 @@
+[
+{
+    "model": "core.advuser",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$2bR2uqrThnIb$WEPW/oYV54zzHZfk27Ekp58+uS2fNjobwCmJ7iV/WS0=",
+        "last_login": "2020-06-11T20:56:55.946Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "Test",
+        "last_name": "User",
+        "email": "admin@example.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2020-05-17T18:39:11Z",
+        "avatar": "avatar_img/DSCN5963.JPG",
+        "birthday": "1985-01-01",
+        "info": "Hello World",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "core.question",
+    "pk": 1,
+    "fields": {
+        "question": "How many people live in Kharkov?",
+        "choise_1": "800 000",
+        "choise_2": "1 million people",
+        "choise_3": "About 2 million people",
+        "choise_4": "More the 5 million people",
+        "answer": "About 2 million people",
+        "test": 1
+    }
+},
+{
+    "model": "core.question",
+    "pk": 2,
+    "fields": {
+        "question": "What rivers flow in Kharkiv?",
+        "choise_1": "Dnipro river",
+        "choise_2": "Kharkiv and Lopan rivers",
+        "choise_3": "Seversky Donets and Kharkiv rivers",
+        "choise_4": "Lopan river",
+        "answer": "Kharkiv and Lopan rivers",
+        "test": 1
+    }
+},
+{
+    "model": "core.question",
+    "pk": 3,
+    "fields": {
+        "question": "What is the name of the main street of Kharkiv?",
+        "choise_1": "Sumska street",
+        "choise_2": "Gagarin Avenue",
+        "choise_3": "Derevyanko street",
+        "choise_4": "Klochkivska street",
+        "answer": "Sumska street",
+        "test": 1
+    }
+},
+{
+    "model": "core.question",
+    "pk": 4,
+    "fields": {
+        "question": "When was Kharkiv founded?",
+        "choise_1": "1917",
+        "choise_2": "1654",
+        "choise_3": "1861",
+        "choise_4": "1564",
+        "answer": "1654",
+        "test": 1
+    }
+},
+{
+    "model": "core.question",
+    "pk": 5,
+    "fields": {
+        "question": "In what years was Kharkiv the capital of Ukraine?",
+        "choise_1": "1917-1918",
+        "choise_2": "1914-1916",
+        "choise_3": "1923-1937",
+        "choise_4": "1919-1934",
+        "answer": "1919-1934",
+        "test": 1
+    }
+},
+{
+    "model": "core.question",
+    "pk": 6,
+    "fields": {
+        "question": "What year was the first public release of the Python (labeled version 0.9.0)?",
+        "choise_1": "1991",
+        "choise_2": "1994",
+        "choise_3": "1989",
+        "choise_4": "2001",
+        "answer": "1991",
+        "test": 2
+    }
+},
+{
+    "model": "core.question",
+    "pk": 7,
+    "fields": {
+        "question": "Name the creator of the Python programming language",
+        "choise_1": "Brendan Eich",
+        "choise_2": "Bjarne Stroustrup",
+        "choise_3": "Linus Torvalds",
+        "choise_4": "Guido van Rossum",
+        "answer": "Guido van Rossum",
+        "test": 2
+    }
+},
+{
+    "model": "core.question",
+    "pk": 8,
+    "fields": {
+        "question": "Latest stable release of Python (May 2020)",
+        "choise_1": "3.8.3",
+        "choise_2": "2.7.17",
+        "choise_3": "4.0.1",
+        "choise_4": "3.7.4",
+        "answer": "3.8.0",
+        "test": 2
+    }
+},
+{
+    "model": "core.question",
+    "pk": 9,
+    "fields": {
+        "question": "What is the name of the language's core philosophy?",
+        "choise_1": "Dao of the Python",
+        "choise_2": "The Zen of Python",
+        "choise_3": "Python Bible",
+        "choise_4": "Python Way",
+        "answer": "The Zen of Python",
+        "test": 2
+    }
+},
+{
+    "model": "core.question",
+    "pk": 10,
+    "fields": {
+        "question": "What is the reference implementation of the Python programming language?",
+        "choise_1": "CPython",
+        "choise_2": "Jython",
+        "choise_3": "IronPython",
+        "choise_4": "PyPy",
+        "answer": "CPython",
+        "test": 2
+    }
+},
+{
+    "model": "core.test",
+    "pk": 1,
+    "fields": {
+        "title": "About Kharkiv",
+        "slug": "about-kharkiv",
+        "description": "A small test about Kharkov",
+        "question_quantity": 5,
+        "author": "admin",
+        "created": "2020-05-17T18:44:08.867Z",
+        "is_active": true,
+        "attempts_counter": 1
+    }
+},
+{
+    "model": "core.test",
+    "pk": 2,
+    "fields": {
+        "title": "Python language",
+        "slug": "python-language",
+        "description": "A small test about Python",
+        "question_quantity": 5,
+        "author": "admin",
+        "created": "2020-05-17T18:54:00.151Z",
+        "is_active": true,
+        "attempts_counter": 1
+    }
+},
+{
+    "model": "core.examination",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "test": 1,
+        "correct_answer_counter": 0,
+        "result": "-1.00"
+    }
+},
+{
+    "model": "core.examination",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "test": 2,
+        "correct_answer_counter": 2,
+        "result": "40.00"
+    }
+},
+{
+    "model": "core.comment",
+    "pk": 1,
+    "fields": {
+        "author": 1,
+        "text": "First comment",
+        "created": "2020-05-17T18:52:29.711Z",
+        "content_type": 7,
+        "object_id": 1
+    }
+},
+{
+    "model": "core.comment",
+    "pk": 2,
+    "fields": {
+        "author": 1,
+        "text": "Second comment",
+        "created": "2020-05-17T18:52:41.814Z",
+        "content_type": 7,
+        "object_id": 1
+    }
+}
+]
